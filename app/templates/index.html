@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OrangeHRM Automation Dashboard</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <script src="/static/js/dashboard.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">O</span><span>OrangeLab <strong>Automation</strong></span></div>
+      <span class="topbar-tag">RPA WORKSPACE</span>
+    </header>
+
+    <main class="main">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">EMPLOYEE OPERATIONS / ORANGEHRM</p>
+          <h1 id="page-title">Automation dashboard</h1>
+          <p class="intro-copy">Create an employee in OrangeHRM, verify the saved record, and export the employee list in one guided run.</p>
+        </div>
+        <div id="status-badge" class="status-badge" role="status" aria-live="polite"><span class="status-dot"></span><span id="status-text">Ready to run</span></div>
+      </section>
+
+      <div class="work-grid">
+        <section class="card form-card" aria-labelledby="config-heading">
+          <div class="card-heading"><div><p class="eyebrow" id="config-eyebrow">01 / CONFIGURE</p><h2 id="config-heading">Run details</h2></div><span class="card-icon" aria-hidden="true">↗</span></div>
+          <div id="live-preview" class="live-preview" hidden>
+            <div class="preview-label"><strong>OrangeHRM in this dashboard</strong><span id="preview-step">Preparing the browser…</span></div>
+            <div class="preview-frame"><img id="preview-image" alt="Current OrangeHRM page" hidden><div id="preview-placeholder">Opening OrangeHRM…</div></div>
+            <p>This read-only page view updates as the automation moves through each step. Watch progress on the right.</p>
+            <button id="new-run-button" class="new-run-button" type="button" hidden>Start another run →</button>
+          </div>
+          <form id="automation-form" novalidate>
+            <fieldset>
+              <legend>OrangeHRM login</legend>
+              <p class="field-help">Credentials are used only for this run and are never saved in the dashboard.</p>
+              <div class="field-grid one">
+                <label class="field"><span>Username <em>*</em></span><input id="username" name="username" type="text" autocomplete="username" maxlength="100" required placeholder="Enter OrangeHRM username"><small class="field-error" id="username-error"></small></label>
+                <label class="field"><span>Password <em>*</em></span><input id="password" name="password" type="password" autocomplete="current-password" maxlength="200" required placeholder="Enter OrangeHRM password"><small class="field-error" id="password-error"></small></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>New employee</legend>
+              <p class="field-help">Use a unique employee ID. The saved record will be checked before it appears in Results.</p>
+              <div class="field-grid two">
+                <label class="field"><span>First name <em>*</em></span><input id="first_name" name="first_name" type="text" maxlength="30" required placeholder="e.g. Maya"><small class="field-error" id="first_name-error"></small></label>
+                <label class="field"><span>Last name <em>*</em></span><input id="last_name" name="last_name" type="text" maxlength="30" required placeholder="e.g. Shah"><small class="field-error" id="last_name-error"></small></label>
+                <label class="field full"><span>Employee ID <em>*</em></span><input id="employee_id" name="employee_id" type="text" maxlength="10" required placeholder="e.g. A482190"><small class="field-error" id="employee_id-error"></small></label>
+              </div>
+            </fieldset>
+            <div class="form-footer">
+              <button id="run-button" class="primary-button" type="submit"><span id="button-label">Run automation</span><span aria-hidden="true">→</span></button>
+              <p>One run at a time · Shared demo runs can take several minutes</p>
+            </div>
+          </form>
+        </section>
+
+        <section class="card progress-card" aria-labelledby="progress-heading">
+          <div class="card-heading"><div><p class="eyebrow">02 / TRACK</p><h2 id="progress-heading">Automation progress</h2></div><span id="progress-count" class="progress-count">0 of 8</span></div>
+          <p class="section-copy">Steps update only when the backend confirms their state.</p>
+          <ol id="progress-list" class="progress-list" aria-live="polite">
+            <li data-key="opening"><span class="step-symbol">1</span><span class="step-copy"><strong>Opening OrangeHRM</strong><small>Pending</small></span></li>
+            <li data-key="login"><span class="step-symbol">2</span><span class="step-copy"><strong>Logging in</strong><small>Pending</small></span></li>
+            <li data-key="pim"><span class="step-symbol">3</span><span class="step-copy"><strong>Navigating to PIM</strong><small>Pending</small></span></li>
+            <li data-key="creation"><span class="step-symbol">4</span><span class="step-copy"><strong>Adding employee</strong><small>Pending</small></span></li>
+            <li data-key="verification"><span class="step-symbol">5</span><span class="step-copy"><strong>Verifying employee</strong><small>Pending</small></span></li>
+            <li data-key="extraction"><span class="step-symbol">6</span><span class="step-copy"><strong>Extracting employees</strong><small>Pending</small></span></li>
+            <li data-key="logout"><span class="step-symbol">7</span><span class="step-copy"><strong>Logging out</strong><small>Pending</small></span></li>
+            <li data-key="completed"><span class="step-symbol">8</span><span class="step-copy"><strong>Completed</strong><small>Pending</small></span></li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="results-grid">
+        <section class="card result-card" aria-labelledby="result-heading">
+          <div class="card-heading"><div><p class="eyebrow">03 / REVIEW</p><h2 id="result-heading">Run result</h2></div></div>
+          <div id="result-empty" class="empty-state"><span class="empty-icon" aria-hidden="true">✓</span><h3>No run yet</h3><p>Verified employee details and any issues will appear here after the workflow starts.</p></div>
+          <div id="result-content" hidden>
+            <div id="result-banner" class="result-banner" role="status"></div>
+            <dl class="employee-facts"><div><dt>First name</dt><dd id="result-first">—</dd></div><div><dt>Last name</dt><dd id="result-last">—</dd></div><div><dt>Employee ID</dt><dd id="result-id">—</dd></div></dl>
+            <p id="result-note" class="result-note"></p>
+            <div id="failure-details" class="failure-details" hidden><h3>What happened and what to do</h3><ul id="failure-list"></ul></div>
+          </div>
+        </section>
+        <section class="card data-card" aria-labelledby="data-heading">
+          <div class="card-heading"><div><p class="eyebrow">04 / EXPORT</p><h2 id="data-heading">Extracted employees</h2></div><a id="download-link" class="download-button" hidden>↓ Download CSV</a></div>
+          <p id="data-summary" class="section-copy">The actual OrangeHRM employee list will appear here after extraction.</p>
+          <div class="table-wrap"><table><thead><tr><th scope="col">Employee ID</th><th scope="col">First name</th><th scope="col">Last name</th></tr></thead><tbody id="employee-rows"><tr><td colspan="3" class="table-empty">No data extracted yet</td></tr></tbody></table></div>
+        </section>
+      </div>
+      <footer class="footer"><span>OrangeHRM demo automation</span><span>Dashboard → Browser workflow → Verified result → CSV</span></footer>
+    </main>
+  </div>
+</body>
+</html>
